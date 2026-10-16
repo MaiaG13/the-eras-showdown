@@ -3,7 +3,7 @@
  * Main Application Entry Point
  */
 import { changeTheme, getSavedTheme } from "../themes/themeManager.js";
-import { initializeTournament } from "./games/tournament.js?v=bracket4";
+import { initializeTournament } from "./games/tournament.js?v=quadrants5";
 
 const completedThemes = [
   "debut", "fearless", "speakNow", "red", "nineteenEightyNine",
