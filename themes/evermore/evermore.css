@@ -1,4 +1,33 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — evermore styles */
+body:has(.evermore-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(230,208,184,.9), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(167,101,67,.25), transparent 60%),
+    linear-gradient(135deg, #F8F1E8, #E6D0B8, #F8F1E8);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.evermore-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.evermore-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.evermore-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #A76543;
+  opacity: 0;
+  user-select: none;
+  animation: evermore-motion 6s ease-in-out infinite;
+}
+@keyframes evermore-motion { 0%{transform:translateY(-12vh) rotate(-15deg);opacity:0}15%{opacity:.5}85%{opacity:.5}100%{transform:translateY(115vh) translateX(35px) rotate(85deg);opacity:0} }
+@media (prefers-reduced-motion: reduce) {
+  .evermore-decoration { animation: none; opacity: .2; }
+}
