@@ -294,31 +294,110 @@
       cursor: pointer;
     }
 
+
+    /* First-visit theme chooser: 3 columns by 4 rows. */
+    .theme-welcome[hidden] { display: none; }
+    .theme-welcome {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      background: #1f1826d9;
+      overflow-y: auto;
+    }
+    .theme-welcome-panel {
+      width: min(100%, 48rem);
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      padding: clamp(1rem, 3vw, 2rem);
+      background: #fffafc;
+      color: #38234d;
+      border-radius: 1.25rem;
+      box-shadow: 0 16px 60px #0005;
+      text-align: center;
+    }
+    .theme-welcome-panel h2 { margin: 0 0 .3rem; }
+    .theme-welcome-panel p { margin: 0 0 1.25rem; }
+    .theme-welcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .75rem;
+    }
+    .theme-choice {
+      display: grid;
+      place-items: center;
+      min-height: 5.2rem;
+      padding: .8rem .5rem;
+      border: 2px solid #ffffffa6;
+      border-radius: .9rem;
+      background: var(--tile-bg);
+      color: var(--tile-text);
+      font: inherit;
+      font-weight: bold;
+      line-height: 1.25;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .theme-choice:hover { transform: translateY(-3px); box-shadow: 0 5px 14px #0002; }
+    .theme-choice:focus-visible { outline: 3px solid #8554a5; outline-offset: 3px; }
+    @media (max-width: 30rem) {
+      .theme-welcome-panel { padding: .9rem; }
+      .theme-welcome-grid { gap: .4rem; }
+      .theme-choice { min-height: 4.6rem; padding: .5rem .25rem; font-size: .75rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .theme-choice { transition: none; }
+    }
+
   </style>
 </head>
 
 <body>
 <div id="theme-decorations" aria-hidden="true"></div>
 
+  <div id="theme-welcome" class="theme-welcome" role="dialog" aria-modal="true" aria-labelledby="theme-welcome-title" hidden>
+    <div class="theme-welcome-panel">
+      <h2 id="theme-welcome-title">Welcome to The Eras Showdown</h2>
+      <p>Choose your era to get started. You can change it anytime!</p>
+      <div class="theme-welcome-grid" aria-label="Choose your starting era">
+        <button type="button" class="theme-choice" data-theme="debut" style="--tile-bg:#D8E5BF;--tile-text:#344A32">Debut</button>
+        <button type="button" class="theme-choice" data-theme="fearless" style="--tile-bg:#F4E4B7;--tile-text:#57401F">Fearless</button>
+        <button type="button" class="theme-choice" data-theme="speakNow" style="--tile-bg:#E3D1F0;--tile-text:#38234D">Speak Now</button>
+        <button type="button" class="theme-choice" data-theme="red" style="--tile-bg:#E4C4B7;--tile-text:#45252B">Red</button>
+        <button type="button" class="theme-choice" data-theme="nineteenEightyNine" style="--tile-bg:#C6E5F4;--tile-text:#29485D">1989</button>
+        <button type="button" class="theme-choice" data-theme="reputation" style="--tile-bg:#25262B;--tile-text:#FFFFFF">reputation</button>
+        <button type="button" class="theme-choice" data-theme="lover" style="--tile-bg:#F5C7DB;--tile-text:#75435F">Lover</button>
+        <button type="button" class="theme-choice" data-theme="folklore" style="--tile-bg:#D2D3D0;--tile-text:#363B39">folklore</button>
+        <button type="button" class="theme-choice" data-theme="evermore" style="--tile-bg:#E6D0B8;--tile-text:#49352D">evermore</button>
+        <button type="button" class="theme-choice" data-theme="midnights" style="--tile-bg:#2A2F4F;--tile-text:#EEE6E3">Midnights</button>
+        <button type="button" class="theme-choice" data-theme="ttpd" style="--tile-bg:#4A4540;--tile-text:#EAE4DB">The Tortured Poets Department</button>
+        <button type="button" class="theme-choice" data-theme="tloas" style="--tile-bg:#6FC4B0;--tile-text:#0E4F4A">The Life of a Showgirl</button>
+      </div>
+    </div>
+  </div>
+
+
   <header>
     <div class="theme-test-controls">
       <label for="theme-test-select">
-        🎨 Choose an era:
+        Choose an era:
       </label>
     
       <select id="theme-test-select">
-        <option value="lover">💕 Lover</option>
-        <option value="debut">🌿 Debut</option>
-        <option value="fearless">💛 Fearless</option>
-        <option value="speakNow">💜 Speak Now</option>
-              <option value="red">❤️ Red</option>
-        <option value="nineteenEightyNine">🩵 1989</option>
-        <option value="reputation">🐍 reputation</option>
-        <option value="folklore">🌲 folklore</option>
-        <option value="evermore">🍂 evermore</option>
-        <option value="midnights">🌙 Midnights</option>
-        <option value="ttpd">🖋️ TTPD</option>
-        <option value="tloas">🧡 Showgirl</option>
+        <option value="debut">Debut</option>
+        <option value="fearless">Fearless</option>
+        <option value="speakNow">Speak Now</option>
+        <option value="red">Red</option>
+        <option value="nineteenEightyNine">1989</option>
+        <option value="reputation">reputation</option>
+        <option value="lover">Lover</option>
+        <option value="folklore">folklore</option>
+        <option value="evermore">evermore</option>
+        <option value="midnights">Midnights</option>
+        <option value="ttpd">The Tortured Poets Department</option>
+        <option value="tloas">The Life of a Showgirl</option>
       </select>
     </div>
     
