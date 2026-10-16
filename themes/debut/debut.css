@@ -1,4 +1,87 @@
+
 /*
  * The Eras Showdown
- * Module implementation coming soon.
+ * Debut Theme Styles
+ *
+ * Meadow greens, soft sunlight,
+ * wildflowers, and drifting leaves.
  */
+
+/* Debut's countryside background */
+body:has(.debut-theme) {
+  background:
+    radial-gradient(
+      ellipse at 20% 15%,
+      rgba(216, 229, 191, 0.85),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(184, 201, 138, 0.5),
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      #F2F5E8,
+      #E8EEDB,
+      #F7F6E9
+    );
+
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* Debut's decorative layer */
+#theme-decorations.debut-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep content above decorations */
+body:has(.debut-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Flowers and leaves */
+.debut-decoration {
+  position: absolute;
+  display: inline-block;
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  opacity: 0.45;
+  user-select: none;
+
+  animation: debut-sway 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Gentle movement, like a meadow breeze */
+@keyframes debut-sway {
+  0%, 100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(8deg);
+  }
+}
+
+/* Add subtle variation to the movement */
+.debut-decoration:nth-child(3n) {
+  animation-duration: 8s;
+}
+
+.debut-decoration:nth-child(4n) {
+  animation-duration: 5s;
+  opacity: 0.3;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .debut-decoration {
+    animation: none;
+  }
+}
