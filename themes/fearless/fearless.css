@@ -1,4 +1,54 @@
 /*
  * The Eras Showdown
- * Module implementation coming soon.
+ * Fearless Theme Styles
+ *
+ * Warm sunlight and champagne-gold shimmer.
  */
+body:has(.fearless-theme) {
+  background:
+    radial-gradient(ellipse at 20% 12%, rgba(255, 244, 195, 0.95), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(232, 200, 117, 0.35), transparent 58%),
+    linear-gradient(135deg, #FFF9E9, #F4E4B7, #FFFDF5);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.fearless-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body:has(.fearless-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+
+.fearless-sparkle {
+  position: absolute;
+  color: #C99B42;
+  font-size: clamp(0.8rem, 2vw, 1.6rem);
+  opacity: 0;
+  user-select: none;
+  animation: fearless-shimmer 5s ease-in-out infinite;
+}
+
+@keyframes fearless-shimmer {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.6) rotate(-12deg);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateY(-8px) scale(1.2) rotate(12deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fearless-sparkle {
+    animation: none;
+    opacity: 0.25;
+  }
+}
