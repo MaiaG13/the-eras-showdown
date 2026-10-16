@@ -295,7 +295,7 @@
     }
 
 
-    /* First-visit theme chooser: 3 columns by 4 rows. */
+    /* First-visit fullscreen theme chooser: four columns by three rows. */
     /* Override album CSS that positions every body child relatively. */
     body > #theme-welcome.theme-welcome {
       position: fixed;
@@ -309,19 +309,21 @@
       z-index: 1000;
       display: grid;
       place-items: center;
-      padding: 1rem;
-      background: #1f1826d9;
+      padding: clamp(1rem, 3vw, 3rem);
+      background: #fffafc;
       overflow-y: auto;
     }
     .theme-welcome-panel {
-      width: min(100%, 48rem);
-      max-height: calc(100vh - 2rem);
-      overflow-y: auto;
+      width: min(100%, 88rem);
+      min-height: calc(100dvh - clamp(2rem, 6vw, 6rem));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding: clamp(1rem, 3vw, 2rem);
-      background: #fffafc;
+      background: transparent;
       color: #38234d;
-      border-radius: 1.25rem;
-      box-shadow: 0 16px 60px #0005;
+      border-radius: 0;
+      box-shadow: none;
       text-align: center;
     }
     .theme-welcome-panel h2 { margin: 0 0 .3rem; }
@@ -329,12 +331,14 @@
     .theme-welcome-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: .75rem;
+      gap: clamp(.6rem, 1.5vw, 1.5rem);
+      flex: 1;
+      align-content: center;
     }
     .theme-choice {
       display: grid;
       place-items: center;
-      min-height: 5.2rem;
+      min-height: clamp(6rem, 17vh, 12rem);
       padding: .8rem .5rem;
       border: 2px solid #ffffffa6;
       border-radius: .9rem;
@@ -351,7 +355,7 @@
     @media (max-width: 30rem) {
       .theme-welcome-panel { padding: .9rem; }
       .theme-welcome-grid { gap: .4rem; }
-      .theme-choice { min-height: 4.6rem; padding: .5rem .25rem; font-size: .75rem; }
+      .theme-choice { min-height: clamp(5rem, 16vh, 8rem); padding: .5rem .25rem; font-size: .75rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .theme-choice { transition: none; }
