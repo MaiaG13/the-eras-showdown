@@ -161,6 +161,26 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
 }
 .back { background: var(--arena-soft); color: var(--arena-ink); }
 
+
+/* Winner/position accents must follow the era, never the old purple palette. */
+#tournament-app .bracket-board-double .bracket-player.is-winner {
+  background: var(--secondary, #f5c7db) !important;
+  color: var(--text, #75435f) !important;
+  border-color: var(--accent, #e7548f) !important;
+  box-shadow: inset 0 0 0 1px var(--accent, #e7548f);
+}
+#tournament-app .bracket-board-double .bracket-player:focus-visible,
+#tournament-app .bracket-board-double .bracket-player:not(:disabled):hover {
+  outline-color: var(--accent, #e7548f);
+  border-color: var(--accent, #e7548f);
+}
+#tournament-app .bracket-board-double .bracket-match {
+  border-color: var(--accent, #e7548f);
+}
+#tournament-app .bracket-board-double .bracket-match::after {
+  border-top-color: var(--accent, #e7548f);
+}
+
 </style>
 </head>
 <body>
@@ -199,6 +219,6 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
     <div id="tournament-bracket" aria-live="polite"></div>
   </main>
 </div>
-<script type="module" src="./js/main.js?v=bracket2"></script>
+<script type="module" src="./js/main.js?v=bracket4"></script>
 </body>
 </html>
