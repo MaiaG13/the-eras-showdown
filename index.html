@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f5">
+  <title>The Eras Showdown</title>
+
+  <style>
+    :root {
+      --pink: #dc83ab;
+      --light-pink: #f5c5d8;
+      --blue: #93cde5;
+      --purple: #8554a5;
+      --ink: #49354e;
+      --white: #ffffff;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: linear-gradient(
+        135deg,
+        #fff0f5,
+        #dceef9,
+        #f5e5fc
+      );
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 4px;
+    }
+
+    /* HERO SECTION */
+
+    header {
+      text-align: center;
+      padding: clamp(3rem, 8vw, 5rem) 1.25rem;
+      background:
+        radial-gradient(
+          circle at 20% 25%,
+          #ffffff99,
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 80% 65%,
+          #ffffff99,
+          transparent 35%
+        );
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      line-height: 1.2;
+      color: #d65096;
+      margin: 0;
+      text-shadow: 2px 3px var(--white);
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-block: 1rem 1.5rem;
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 65rem;
+      margin-inline: auto;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--white);
+      color: #75435f;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 12px #75435f20;
+      transition:
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    nav a:hover {
+      background: var(--light-pink);
+      transform: translateY(-2px);
+    }
+
+    /* MAIN LAYOUT */
+
+    main {
+      width: min(90%, 70rem);
+      margin-inline: auto;
+      padding-block: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    section {
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+      scroll-margin-top: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      margin-bottom: 1.5rem;
+    }
+
+    /* RESPONSIVE CARD GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(min(100%, 13rem), 1fr)
+        );
+      gap: 1.25rem;
+    }
+
+    .card {
+      padding: 1.75rem 1.4rem;
+      background: #ffffffd9;
+      border-radius: 1.4rem;
+      text-align: center;
+      box-shadow: 0 6px 20px #49354e15;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin-bottom: 1rem;
+    }
+
+    .coming-soon {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #75435f;
+      background: #f5c5d870;
+      border-radius: 1rem;
+      padding: 0.35rem 0.8rem;
+    }
+
+    /* ALBUM THEMES */
+
+    .era {
+      padding: 1.5rem 0.75rem;
+      min-height: 5.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      text-align: center;
+      font-weight: bold;
+      color: #29232d;
+      border: 1px solid #ffffff99;
+    }
+
+    .debut {
+      background: #d8e5bf;
+    }
+
+    .fearless {
+      background: #f4e4b7;
+    }
+
+    .speak-now {
+      background: #e3d1f0;
+    }
+
+    .red {
+      background: #e4c4b7;
+    }
+
+    .nineteen-eighty-nine {
+      background: #c6e5f4;
+    }
+
+    .reputation {
+      background: #25262b;
+      color: white;
+    }
+
+    .lover {
+      background: #f5c5d8;
+    }
+
+    .folklore {
+      background: #d2d3d0;
+    }
+
+    .evermore {
+      background: #e6d0b8;
+    }
+
+    .midnights {
+      background: #29395c;
+      color: white;
+    }
+
+    .ttpd {
+      background: #45403e;
+      color: white;
+    }
+
+    .showgirl {
+      background: #55c6c4;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    /* SMALL SCREEN ADJUSTMENTS */
+
+    @media (max-width: 40rem) {
+      main {
+        width: 92%;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav a {
+        width: 100%;
+      }
+
+      .card {
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>✨ The Eras Showdown ✨</h1>
+
+    <p class="subtitle">
+      Every era. Every song. Your rules.
+    </p>
+
+    <nav aria-label="Main navigation">
+      <a href="#games">Music Arcade</a>
+      <a href="#tournaments">Tournament Arena</a>
+      <a href="#eras">Explore the Eras</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- MUSIC ARCADE -->
+
+    <section id="games">
+      <h2>🎮 Music Arcade</h2>
+
+      <div class="grid">
+
+        <article class="card">
+          <h3>🎭 Guess the Song</h3>
+          <p>
+            Decode emoji clues to identify
+            Taylor Swift songs!
+          </p>
+          <span class="coming-soon">Coming soon</span>
+        </article>
+
+        <article class="card">
+          <h3>🎵 This or That</h3>
+          <p>
+            Choose between two songs.
+            How impossible can it get?
+          </p>
+          <span class="coming-soon">Coming soon</span>
+        </article>
+
+        <article class="card">
+          <h3>🏆 Song Rankings</h3>
+          <p>
+            Build your own ranking
+            of every Taylor Swift song.
+          </p>
+          <span class="coming-soon">Coming soon</span>
+        </article>
+
+        <article class="card">
+          <h3>⏱️ Speed Round</h3>
+          <p>
+            Put your Taylor Swift knowledge
+            to the test!
+          </p>
+          <span class="coming-soon">Coming soon</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- TOURNAMENT ARENA -->
+
+    <section id="tournaments">
+      <h2>🏆 Tournament Arena</h2>
+
+      <article class="card">
+        <h3>Build Your Own Showdown</h3>
+        <p>
+          Pick songs, albums, or eras and compete
+          in single-elimination or
+          double-elimination brackets.
+        </p>
+        <span class="coming-soon">Coming soon</span>
+      </article>
+    </section>
+
+    <!-- ALL TWELVE ERAS -->
+
+    <section id="eras">
+      <h2>💿 Explore the Eras</h2>
+
+      <div class="grid">
+        <div class="era debut">Debut</div>
+        <div class="era fearless">Fearless</div>
+        <div class="era speak-now">Speak Now</div>
+        <div class="era red">Red</div>
+        <div class="era nineteen-eighty-nine">1989</div>
+        <div class="era reputation">reputation</div>
+        <div class="era lover">Lover</div>
+        <div class="era folklore">folklore</div>
+        <div class="era evermore">evermore</div>
+        <div class="era midnights">Midnights</div>
+        <div class="era ttpd">
+          The Tortured Poets Department
+        </div>
+        <div class="era showgirl">
+          The Life of a Showgirl
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Made by a Swiftie, for Swifties ♡</p>
+    <p>
+      Unofficial fan project.
+      Not affiliated with Taylor Swift.
+    </p>
+  </footer>
+
+</body>
+</html>
