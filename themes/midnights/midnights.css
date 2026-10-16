@@ -1,4 +1,35 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — Midnights styles */
+body:has(.midnights-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(84,75,101,.7), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(139,154,199,.22), transparent 60%),
+    linear-gradient(135deg, #2A2F4F, #544B65, #2A2F4F);
+  background-attachment: fixed;
+  color: var(--text);
+}
+#theme-decorations.midnights-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.midnights-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.midnights-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #EEE6E3;
+  opacity: 0;
+  user-select: none;
+  animation: midnights-motion 6s ease-in-out infinite;
+}
+@keyframes midnights-motion { 0%,100%{transform:scale(.55) rotate(-8deg);opacity:0}50%{transform:scale(1.2) rotate(8deg);opacity:.65} }
+@media (prefers-reduced-motion: reduce) {
+  .midnights-decoration { animation: none; opacity: .2; }
+}
+body:has(.midnights-theme) h1,
+body:has(.midnights-theme) h2,
+body:has(.midnights-theme) .subtitle { color: #EEE6E3; text-shadow: none; }
