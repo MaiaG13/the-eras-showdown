@@ -210,8 +210,9 @@ function showNextMatch() {
         matches.length === 2 ? "Semifinals" :
         matches.length === 4 ? "Quarterfinals" : "Round of " + matches.length * 2;
       title.textContent = name;
-      const completed = matches.filter(item => item.winner).length;
-      progress.textContent = "Match " + (completed + 1) + " of " + matches.length + " · Counterclockwise around the bracket";
+      const playableMatches = matches.filter(item => item.players.every(Boolean));
+      const completed = playableMatches.filter(item => item.winner).length;
+      progress.textContent = "Match " + (completed + 1) + " of " + playableMatches.length + " · Counterclockwise around the bracket";
       choices.appendChild(button(match.players[0], () => selectWinner(r, m, match.players[0]), "head-to-head-choice"));
       choices.appendChild(node("span", "head-to-head-versus", "VS"));
       choices.appendChild(button(match.players[1], () => selectWinner(r, m, match.players[1]), "head-to-head-choice"));
