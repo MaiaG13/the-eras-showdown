@@ -1,4 +1,33 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — Red styles */
+body:has(.red-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(228,196,183,.8), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(146,47,66,.18), transparent 60%),
+    linear-gradient(135deg, #FAF0E6, #E4C4B7, #FAF0E6);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.red-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.red-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.red-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #922F42;
+  opacity: 0;
+  user-select: none;
+  animation: red-motion 6s ease-in-out infinite;
+}
+@keyframes red-motion { 0%{transform:translateY(-12vh) rotate(-15deg);opacity:0}15%{opacity:.5}85%{opacity:.5}100%{transform:translateY(115vh) translateX(35px) rotate(85deg);opacity:0} }
+@media (prefers-reduced-motion: reduce) {
+  .red-decoration { animation: none; opacity: .2; }
+}
