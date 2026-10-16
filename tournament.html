@@ -115,6 +115,52 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
   .bracket-board-double .bracket-player { font-size: .75rem; }
 }
 
+
+/* Album-responsive tournament palette, derived from themeManager CSS variables. */
+:root {
+  --arena-ink: var(--text, #75435f);
+  --arena-edge: var(--accent, #e7548f);
+  --arena-soft: var(--secondary, #f5c7db);
+  --arena-alt: var(--secondaryAccent, #a7d8f0);
+}
+.panel {
+  background: color-mix(in srgb, var(--background, #fff0f6) 78%, var(--arena-soft) 22%);
+  color: var(--arena-ink);
+  border: 1px solid color-mix(in srgb, var(--arena-edge) 38%, transparent);
+}
+#tournament-size, .tournament-field input, .theme-control select {
+  border-color: var(--arena-edge);
+}
+.tournament-action, .bracket-reset {
+  background: var(--arena-soft);
+  color: var(--arena-ink);
+  border-color: var(--arena-edge);
+}
+.bracket-match {
+  background: color-mix(in srgb, var(--background, #fff0f6) 72%, var(--arena-soft) 28%);
+  border-color: color-mix(in srgb, var(--arena-edge) 55%, transparent);
+}
+.bracket-player {
+  background: color-mix(in srgb, var(--background, #fff0f6) 90%, white 10%);
+  color: var(--arena-ink);
+}
+.bracket-player:not(:disabled):hover {
+  background: color-mix(in srgb, var(--arena-alt) 42%, var(--background, #fff0f6));
+  border-color: var(--arena-edge);
+}
+.bracket-player.is-winner {
+  background: var(--arena-soft);
+  color: var(--arena-ink);
+  border-color: var(--arena-edge);
+}
+.bracket-board-double .bracket-match::after { border-top-color: var(--arena-edge); }
+.bracket-champion-name {
+  background: var(--arena-soft);
+  border-color: var(--arena-edge);
+  color: var(--arena-ink);
+}
+.back { background: var(--arena-soft); color: var(--arena-ink); }
+
 </style>
 </head>
 <body>
