@@ -101,7 +101,7 @@ function render() {
   if (!rounds) return;
   const toolbar = node("div", "bracket-toolbar");
   toolbar.appendChild(node("p", "", "Click a contestant to advance them. Scroll sideways to view later rounds."));
-  toolbar.appendChild(button("Head-to-Head Mode", () => openHeadToHead(), "bracket-reset head-to-head-start"));
+  toolbar.appendChild(button("▶ Play through bracket", () => openHeadToHead(), "bracket-reset head-to-head-start"));
   toolbar.appendChild(button("New tournament", () => {
     headToHead = false;
     closeHeadToHead();
@@ -190,10 +190,16 @@ function showNextMatch() {
   const progress = overlay.querySelector("#head-to-head-progress");
   const choices = overlay.querySelector("#head-to-head-choices");
   choices.replaceChildren();
-  // Finish every playable matchup in the current round before moving on.
+  // Sweep counterclockwise within each round: top-left down the left
+  // wing, then bottom-right up the right wing. Repeat inward.
   for (let r = 0; r < rounds.length; r++) {
     const matches = rounds[r];
-    for (let m = 0; m < matches.length; m++) {
+    const split = Math.ceil(matches.length / 2);
+    const order = [
+      ...Array.from({length: split}, (_, i) => i),
+      ...Array.from({length: matches.length - split}, (_, i) => matches.length - 1 - i)
+    ];
+    for (const m of order) {
       const match = matches[m];
       if (match.winner) continue;
       if (match.players.some(player => !player)) {
@@ -205,7 +211,7 @@ function showNextMatch() {
         matches.length === 4 ? "Quarterfinals" : "Round of " + matches.length * 2;
       title.textContent = name;
       const completed = matches.filter(item => item.winner).length;
-      progress.textContent = "Match " + (completed + 1) + " of " + matches.length;
+      progress.textContent = "Match " + (completed + 1) + " of " + matches.length + " · Counterclockwise around the bracket";
       choices.appendChild(button(match.players[0], () => selectWinner(r, m, match.players[0]), "head-to-head-choice"));
       choices.appendChild(node("span", "head-to-head-versus", "VS"));
       choices.appendChild(button(match.players[1], () => selectWinner(r, m, match.players[1]), "head-to-head-choice"));
