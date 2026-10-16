@@ -36,17 +36,18 @@ function setup(names) {
   // them on one side. For 12 eras, each of the four quadrants gets one bye.
   const byeCount = count - entrants.length;
   const matchCount = count / 2;
-  const quadrantCount = Math.min(4, matchCount);
-  const byeMatches = [];
-  // Allocate one bye to each quadrant before adding a second to any.
-  // For 12 entrants in 16 slots, the bye match indexes are 0, 2, 4, 6.
-  for (let i = 0; i < byeCount; i++) {
-    const quadrant = i % quadrantCount;
-    const tier = Math.floor(i / quadrantCount);
-    const start = Math.floor(quadrant * matchCount / quadrantCount);
-    const end = Math.floor((quadrant + 1) * matchCount / quadrantCount);
-    byeMatches.push(start + (tier % (end - start)));
+  // Assign byes from the OUTSIDE edges inward on each side.
+  // For 12 entrants in a 16-slot bracket, matches 0, 3, 4, 7
+  // receive byes: top/bottom of the left and right wings.
+  const byePriority = [];
+  const half = Math.floor(matchCount / 2);
+  for (let depth = 0; depth < half; depth++) {
+    for (const index of [depth, half - 1 - depth, half + depth, matchCount - 1 - depth]) {
+      if (!byePriority.includes(index)) byePriority.push(index);
+    }
   }
+  if (matchCount % 2) byePriority.push(half);
+  const byeMatches = byePriority.slice(0, byeCount);
   const byeSet = new Set(byeMatches);
   let cursor = 0;
   for (let i = 0; i < matchCount; i++) {
