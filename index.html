@@ -296,6 +296,12 @@
 
 
     /* First-visit theme chooser: 3 columns by 4 rows. */
+    /* Override album CSS that positions every body child relatively. */
+    body > #theme-welcome.theme-welcome {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+    }
     .theme-welcome[hidden] { display: none; }
     .theme-welcome {
       position: fixed;
