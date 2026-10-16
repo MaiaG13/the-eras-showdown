@@ -1,4 +1,33 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — 1989 styles */
+body:has(.nineteenEightyNine-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(198,229,244,.9), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(229,213,189,.4), transparent 60%),
+    linear-gradient(135deg, #F0F8FC, #C6E5F4, #F0F8FC);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.nineteenEightyNine-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.nineteenEightyNine-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.nineteenEightyNine-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #6CA8CE;
+  opacity: 0;
+  user-select: none;
+  animation: nineteenEightyNine-motion 6s ease-in-out infinite;
+}
+@keyframes nineteenEightyNine-motion { 0%,100%{transform:translateX(-12px) translateY(5px);opacity:.12}50%{transform:translateX(15px) translateY(-10px);opacity:.45} }
+@media (prefers-reduced-motion: reduce) {
+  .nineteenEightyNine-decoration { animation: none; opacity: .2; }
+}
