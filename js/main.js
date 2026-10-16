@@ -3,6 +3,7 @@
  * Main Application Entry Point
  */
 import { changeTheme, getSavedTheme } from "../themes/themeManager.js";
+import { initializeTournament } from "./games/tournament.js";
 
 const completedThemes = [
   "debut", "fearless", "speakNow", "red", "nineteenEightyNine",
@@ -11,6 +12,7 @@ const completedThemes = [
 ];
 
 function initializeApp() {
+  initializeTournament();
   const themeSelect = document.getElementById("theme-test-select");
   const welcome = document.getElementById("theme-welcome");
   const savedTheme = getSavedTheme();
