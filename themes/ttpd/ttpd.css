@@ -1,4 +1,35 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — The Tortured Poets Department styles */
+body:has(.ttpd-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(74,69,64,.85), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(140,124,112,.28), transparent 60%),
+    linear-gradient(135deg, #2D2A26, #4A4540, #2D2A26);
+  background-attachment: fixed;
+  color: var(--text);
+}
+#theme-decorations.ttpd-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.ttpd-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.ttpd-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #EAE4DB;
+  opacity: 0;
+  user-select: none;
+  animation: ttpd-motion 6s ease-in-out infinite;
+}
+@keyframes ttpd-motion { 0%,100%{transform:translateY(9px) rotate(-5deg);opacity:.1}50%{transform:translateY(-11px) rotate(7deg);opacity:.45} }
+@media (prefers-reduced-motion: reduce) {
+  .ttpd-decoration { animation: none; opacity: .2; }
+}
+body:has(.ttpd-theme) h1,
+body:has(.ttpd-theme) h2,
+body:has(.ttpd-theme) .subtitle { color: #EAE4DB; text-shadow: none; }
