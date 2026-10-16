@@ -38,13 +38,14 @@ function setup(names) {
   const matchCount = count / 2;
   const quadrantCount = Math.min(4, matchCount);
   const byeMatches = [];
+  // Allocate one bye to each quadrant before adding a second to any.
+  // For 12 entrants in 16 slots, the bye match indexes are 0, 2, 4, 6.
   for (let i = 0; i < byeCount; i++) {
     const quadrant = i % quadrantCount;
     const tier = Math.floor(i / quadrantCount);
     const start = Math.floor(quadrant * matchCount / quadrantCount);
     const end = Math.floor((quadrant + 1) * matchCount / quadrantCount);
-    const index = start + (tier % (end - start));
-    byeMatches.push(index);
+    byeMatches.push(start + (tier % (end - start)));
   }
   const byeSet = new Set(byeMatches);
   let cursor = 0;
