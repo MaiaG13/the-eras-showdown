@@ -1,4 +1,59 @@
 /*
  * The Eras Showdown
- * Module implementation coming soon.
+ * Speak Now Theme Styles
+ *
+ * Lavender mist and enchanted, gently drifting stars.
  */
+body:has(.speak-now-theme) {
+  background:
+    radial-gradient(ellipse at 18% 18%, rgba(227, 209, 240, 0.85), transparent 54%),
+    radial-gradient(ellipse at 82% 72%, rgba(185, 148, 210, 0.42), transparent 57%),
+    linear-gradient(135deg, #F8F2FC, #E8D9F4, #F9F2FF);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.speak-now-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body:has(.speak-now-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+
+.speak-now-star {
+  position: absolute;
+  display: inline-block;
+  color: #8554A5;
+  font-size: clamp(0.85rem, 1.8vw, 1.55rem);
+  opacity: 0;
+  user-select: none;
+  animation: speak-now-enchant 6s ease-in-out infinite;
+}
+
+.speak-now-star:nth-child(3n) {
+  color: #B994D2;
+}
+
+@keyframes speak-now-enchant {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(12px) rotate(-12deg) scale(0.65);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateY(-12px) rotate(14deg) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speak-now-star {
+    animation: none;
+    opacity: 0.25;
+  }
+}
