@@ -460,7 +460,7 @@
 
     <nav aria-label="Main navigation">
       <a href="#games">Music Arcade</a>
-      <a href="#tournaments">Tournament Arena</a>
+      <a href="./tournament.html">Tournament Arena</a>
       <a href="#eras">Explore the Eras</a>
     </nav>
   </header>
@@ -516,26 +516,11 @@
     <!-- TOURNAMENT ARENA -->
 
     <section id="tournaments">
-      <h2>🏆 Tournament Arena</h2>
-
-      <article class="card tournament-card" id="tournament-app">
+      <h2>Tournament Arena</h2>
+      <article class="card">
         <h3>Build Your Own Showdown</h3>
-        <p>Pick your contestants and vote through a single-elimination tournament!</p>
-        <form id="tournament-setup">
-          <label for="tournament-size">Number of contestants</label>
-          <select id="tournament-size">
-            <option value="4">4</option>
-            <option value="8" selected>8</option>
-            <option value="16">16</option>
-          </select>
-          <div id="tournament-fields" class="tournament-fields"></div>
-          <div class="tournament-actions">
-            <button type="submit" class="tournament-action">Start custom tournament</button>
-            <button type="button" id="tournament-eras" class="tournament-action">Play all 12 eras</button>
-          </div>
-          <p id="tournament-message" role="status"></p>
-        </form>
-        <div id="tournament-bracket" aria-live="polite"></div>
+        <p>Create a tournament, choose your winners, and watch them advance through the bracket.</p>
+        <a class="tournament-action" href="./tournament.html" style="display:inline-block;text-decoration:none">Open Tournament Arena →</a>
       </article>
     </section>
 
