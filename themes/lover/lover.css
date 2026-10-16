@@ -1,4 +1,117 @@
+
 /*
  * The Eras Showdown
- * Module implementation coming soon.
+ * Lover Theme Styles
+ *
+ * Dreamy pink-and-blue clouds,
+ * floating hearts, and glittering sparkles.
  */
+
+/* Lover's page background */
+body:has(.lover-theme) {
+  background:
+    radial-gradient(
+      ellipse at 15% 20%,
+      rgba(167, 216, 240, 0.55),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 85% 70%,
+      rgba(245, 199, 219, 0.85),
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      #FFF0F6,
+      #FCE4F0,
+      #E7F4FC
+    );
+
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* Decorations layer */
+#theme-decorations.lover-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep actual page content above decorations */
+body:has(.lover-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Floating hearts */
+.lover-heart {
+  position: absolute;
+  bottom: -10%;
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  opacity: 0;
+  animation: lover-float 12s linear infinite;
+  user-select: none;
+}
+
+/* Glittering sparkles */
+.lover-sparkle {
+  position: absolute;
+  font-size: clamp(0.6rem, 1.5vw, 1.2rem);
+  color: #E7548F;
+  opacity: 0;
+  animation: lover-twinkle 4s ease-in-out infinite;
+  user-select: none;
+}
+
+/* Hearts drift upward */
+@keyframes lover-float {
+  0% {
+    transform: translateY(0) rotate(-10deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.35;
+  }
+
+  85% {
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translateY(-120vh) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkles fade in and out */
+@keyframes lover-twinkle {
+  0%, 100% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Accessibility: reduce animation if requested */
+@media (prefers-reduced-motion: reduce) {
+  .lover-heart,
+  .lover-sparkle {
+    animation: none;
+  }
+
+  .lover-heart {
+    display: none;
+  }
+
+  .lover-sparkle {
+    opacity: 0.25;
+  }
+}
