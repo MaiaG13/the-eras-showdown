@@ -1,40 +1,55 @@
-
 /*
  * The Eras Showdown
  * Main Application Entry Point
  */
+import { changeTheme, getSavedTheme } from "../themes/themeManager.js";
 
-import {
-  changeTheme,
-  getSavedTheme
-} from "../themes/themeManager.js";
+const completedThemes = [
+  "debut", "fearless", "speakNow", "red", "nineteenEightyNine",
+  "reputation", "lover", "folklore", "evermore", "midnights",
+  "ttpd", "tloas"
+];
 
 function initializeApp() {
-  console.log("The Eras Showdown is starting!");
-
-  const themeSelect = document.getElementById(
-    "theme-test-select"
-  );
-
-  // Only use completed themes during testing.
-  const completedThemes = ["lover","debut","fearless","speakNow","red","nineteenEightyNine","reputation","folklore","evermore","midnights","ttpd","tloas"];
-
+  const themeSelect = document.getElementById("theme-test-select");
+  const welcome = document.getElementById("theme-welcome");
   const savedTheme = getSavedTheme();
+  const hasSavedTheme = completedThemes.includes(savedTheme);
 
-  const startingTheme =
-    completedThemes.includes(savedTheme)
-      ? savedTheme
-      : "lover";
+  // Preview Lover behind the welcome screen, but do not save a choice
+  // before the visitor selects an era.
+  if (hasSavedTheme) {
+    changeTheme(savedTheme);
+  } else {
+    changeTheme("lover");
+    localStorage.removeItem("selectedEra");
+  }
 
-  // Apply the starting theme.
-  changeTheme(startingTheme);
-
-  // Match the dropdown to the active theme.
   if (themeSelect) {
-    themeSelect.value = startingTheme;
-
+    themeSelect.value = hasSavedTheme ? savedTheme : "lover";
     themeSelect.addEventListener("change", () => {
       changeTheme(themeSelect.value);
+    });
+  }
+
+  if (!hasSavedTheme && welcome) {
+    welcome.hidden = false;
+    document.body.style.overflow = "hidden";
+
+    const firstChoice = welcome.querySelector(".theme-choice");
+    firstChoice?.focus();
+
+    welcome.querySelectorAll(".theme-choice").forEach(button => {
+      button.addEventListener("click", () => {
+        const themeId = button.dataset.theme;
+        if (!completedThemes.includes(themeId)) return;
+        if (!changeTheme(themeId)) return;
+
+        if (themeSelect) themeSelect.value = themeId;
+        welcome.hidden = true;
+        document.body.style.overflow = "";
+        themeSelect?.focus();
+      });
     });
   }
 }
