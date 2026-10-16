@@ -210,9 +210,13 @@ function showNextMatch() {
         matches.length === 2 ? "Semifinals" :
         matches.length === 4 ? "Quarterfinals" : "Round of " + matches.length * 2;
       title.textContent = name;
-      const playableMatches = matches.filter(item => item.players.every(Boolean));
-      const completed = playableMatches.filter(item => item.winner).length;
-      progress.textContent = "Match " + (completed + 1) + " of " + playableMatches.length + " · Counterclockwise around the bracket";
+      // Byes do not count as played matches; use the same traversal order
+      // for the displayed position as for the popup sequence.
+      const playableOrder = order.filter(index =>
+        r === 0 ? matches[index].players.every(Boolean) : true
+      );
+      const matchNumber = playableOrder.indexOf(m) + 1;
+      progress.textContent = "Match " + matchNumber + " of " + playableOrder.length;
       choices.appendChild(button(match.players[0], () => selectWinner(r, m, match.players[0]), "head-to-head-choice"));
       choices.appendChild(node("span", "head-to-head-versus", "VS"));
       choices.appendChild(button(match.players[1], () => selectWinner(r, m, match.players[1]), "head-to-head-choice"));
