@@ -2,9 +2,6 @@
 /*
  * The Eras Showdown
  * Main Application Entry Point
- *
- * Initializes the website and connects
- * its modules and components.
  */
 
 import {
@@ -15,16 +12,31 @@ import {
 function initializeApp() {
   console.log("The Eras Showdown is starting!");
 
-  // Load a saved theme if one exists.
-  // Otherwise, temporarily use Lover.
-  const selectedTheme = getSavedTheme() ?? "lover";
+  const themeSelect = document.getElementById(
+    "theme-test-select"
+  );
 
-  changeTheme(selectedTheme);
+  // Only use completed themes during testing.
+  const completedThemes = ["lover", "debut"];
 
-  // Coming later:
-  // 1. First-visit welcome screen
-  // 2. Settings menu
-  // 3. Game modules
+  const savedTheme = getSavedTheme();
+
+  const startingTheme =
+    completedThemes.includes(savedTheme)
+      ? savedTheme
+      : "lover";
+
+  // Apply the starting theme.
+  changeTheme(startingTheme);
+
+  // Match the dropdown to the active theme.
+  if (themeSelect) {
+    themeSelect.value = startingTheme;
+
+    themeSelect.addEventListener("change", () => {
+      changeTheme(themeSelect.value);
+    });
+  }
 }
 
 initializeApp();
