@@ -402,7 +402,18 @@
     .tournament-reset { margin-top: 1rem; }
     @media (max-width: 35rem) { .tournament-fields { grid-template-columns: 1fr; } }
 
-  </style>
+
+    /* Tournament preview stays readable against its light card in every era. */
+    #tournaments .card {
+      color: #302639;
+    }
+    #tournaments .card h3,
+    #tournaments .card p {
+      color: #302639;
+      opacity: 1;
+      text-shadow: none;
+    }
+\n  </style>
 </head>
 
 <body>
