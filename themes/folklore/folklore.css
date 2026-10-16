@@ -1,4 +1,33 @@
-/*
- * The Eras Showdown
- * Module implementation coming soon.
- */
+/* The Eras Showdown — folklore styles */
+body:has(.folklore-theme) {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(210,211,208,.9), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(171,180,168,.45), transparent 60%),
+    linear-gradient(135deg, #F0F0ED, #D2D3D0, #F0F0ED);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+#theme-decorations.folklore-theme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+body:has(.folklore-theme) > :not(#theme-decorations) {
+  position: relative;
+  z-index: 1;
+}
+.folklore-decoration {
+  position: absolute;
+  font-size: clamp(0.85rem, 1.9vw, 1.7rem);
+  color: #838783;
+  opacity: 0;
+  user-select: none;
+  animation: folklore-motion 6s ease-in-out infinite;
+}
+@keyframes folklore-motion { 0%,100%{transform:translateX(-18px) scale(.9);opacity:.06}50%{transform:translateX(20px) scale(1.2);opacity:.27} }
+@media (prefers-reduced-motion: reduce) {
+  .folklore-decoration { animation: none; opacity: .2; }
+}
