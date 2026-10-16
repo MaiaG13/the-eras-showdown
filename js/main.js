@@ -17,7 +17,7 @@ function initializeApp() {
   );
 
   // Only use completed themes during testing.
-  const completedThemes = ["lover", "debut"];
+  const completedThemes = ["lover", "debut", "fearless"];
 
   const savedTheme = getSavedTheme();
 
