@@ -32,12 +32,25 @@ function setup(names) {
   const count = 2 ** Math.ceil(Math.log2(entrants.length));
   const slots = Array(count).fill(null);
   const randomized = shuffle(entrants);
-  // One bye maximum per first-round pairing.
+  // Distribute byes across bracket quadrants, rather than clustering
+  // them on one side. For 12 eras, each of the four quadrants gets one bye.
   const byeCount = count - entrants.length;
+  const matchCount = count / 2;
+  const quadrantCount = Math.min(4, matchCount);
+  const byeMatches = [];
+  for (let i = 0; i < byeCount; i++) {
+    const quadrant = i % quadrantCount;
+    const tier = Math.floor(i / quadrantCount);
+    const start = Math.floor(quadrant * matchCount / quadrantCount);
+    const end = Math.floor((quadrant + 1) * matchCount / quadrantCount);
+    const index = start + (tier % (end - start));
+    byeMatches.push(index);
+  }
+  const byeSet = new Set(byeMatches);
   let cursor = 0;
-  for (let i = 0; i < count / 2; i++) {
+  for (let i = 0; i < matchCount; i++) {
     slots[i * 2] = randomized[cursor++];
-    if (i >= byeCount) slots[i * 2 + 1] = randomized[cursor++];
+    if (!byeSet.has(i)) slots[i * 2 + 1] = randomized[cursor++];
   }
   rounds = [];
   let size = count;
