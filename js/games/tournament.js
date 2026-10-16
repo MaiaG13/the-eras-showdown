@@ -87,32 +87,58 @@ function render() {
     area.replaceChildren();
   }, "bracket-reset"));
   area.appendChild(toolbar);
-  const board = node("div", "bracket-board");
-  rounds.forEach((matches, r) => {
-    const column = node("section", "bracket-round");
-    const heading = matches.length === 1 ? "Final" : matches.length === 2 ? "Semifinals" : matches.length === 4 ? "Quarterfinals" : "Round of " + matches.length * 2;
+  const board = node("div", "bracket-board bracket-board-double");
+  const last = rounds.length - 1;
+
+  function makeColumn(r, side) {
+    const matches = rounds[r];
+    const column = node("section", "bracket-round bracket-" + side);
+    const roundSize = matches.length * 2;
+    const heading = roundSize === 4 ? "Semifinals" : roundSize === 8 ? "Quarterfinals" : "Round of " + roundSize;
     column.appendChild(node("h3", "", heading));
     const games = node("div", "bracket-round-games");
-    matches.forEach((match, m) => {
+    const half = matches.length / 2;
+    const offset = side === "left" ? 0 : half;
+    matches.slice(offset, offset + half).forEach((match, localIndex) => {
+      const m = offset + localIndex;
       const game = node("div", "bracket-match");
-      match.players.forEach((player, index) => {
+      match.players.forEach(player => {
         const label = player || (r === 0 ? "Bye" : "TBD");
         const pick = button(label, () => selectWinner(r, m, player), "bracket-player");
         if (match.winner === player && player) pick.classList.add("is-winner");
-        if (!player || match.players.some(x => !x) || match.winner) pick.disabled = !player || match.players.some(x => !x);
+        pick.disabled = !player || match.players.some(x => !x);
         pick.setAttribute("aria-label", player ? "Advance " + player : label);
         game.appendChild(pick);
       });
       games.appendChild(game);
     });
     column.appendChild(games);
-    board.appendChild(column);
+    return column;
+  }
+
+  // Both sides advance inward, meeting in the center for the final.
+  const left = node("div", "bracket-wing bracket-wing-left");
+  const right = node("div", "bracket-wing bracket-wing-right");
+  for (let r = 0; r < last; r++) left.appendChild(makeColumn(r, "left"));
+  for (let r = last - 1; r >= 0; r--) right.appendChild(makeColumn(r, "right"));
+
+  const center = node("section", "bracket-center");
+  center.appendChild(node("h3", "", "Championship"));
+  const final = rounds[last][0];
+  const finalMatch = node("div", "bracket-match bracket-final");
+  final.players.forEach(player => {
+    const pick = button(player || "TBD", () => selectWinner(last, 0, player), "bracket-player");
+    if (final.winner === player && player) pick.classList.add("is-winner");
+    pick.disabled = !player || final.players.some(x => !x);
+    finalMatch.appendChild(pick);
   });
-  const final = rounds[rounds.length - 1][0];
-  const champion = node("section", "bracket-champion");
-  champion.appendChild(node("h3", "", "Champion"));
-  champion.appendChild(node("div", "bracket-champion-name", final.winner || "To be crowned"));
-  board.appendChild(champion);
+  center.appendChild(finalMatch);
+  center.appendChild(node("h3", "champion-title", "Champion"));
+  center.appendChild(node("div", "bracket-champion-name", final.winner || "To be crowned"));
+
+  board.appendChild(left);
+  board.appendChild(center);
+  board.appendChild(right);
   area.appendChild(board);
 }
 function renderInputs(count) {
