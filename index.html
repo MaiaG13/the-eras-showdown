@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#fff0f5">
   <title>The Eras Showdown</title>
-  <link rel="stylesheet" href="./themes/lover/lover.css">
 
   <style>
     :root {
@@ -272,6 +271,29 @@
         transition: none !important;
       }
     }
+
+    /* Temporary theme testing controls */
+    .theme-test-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      color: var(--text, #75435F);
+      font-weight: bold;
+    }
+    
+    .theme-test-controls select {
+      padding: 0.65rem 1rem;
+      border: 2px solid var(--accent, #E7548F);
+      border-radius: 0.75rem;
+      background: white;
+      color: #344A32;
+      font: inherit;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 
@@ -279,6 +301,17 @@
 <div id="theme-decorations" aria-hidden="true"></div>
 
   <header>
+    <div class="theme-test-controls">
+      <label for="theme-test-select">
+        🎨 Choose an era:
+      </label>
+    
+      <select id="theme-test-select">
+        <option value="lover">💕 Lover</option>
+        <option value="debut">🌿 Debut</option>
+      </select>
+    </div>
+    
     <h1>✨ The Eras Showdown ✨</h1>
 
     <p class="subtitle">
