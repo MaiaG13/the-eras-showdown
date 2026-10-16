@@ -181,6 +181,59 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
   border-top-color: var(--accent, #e7548f);
 }
 
+
+/* Head-to-head popup: uses the currently selected era's palette. */
+.head-to-head-open { overflow: hidden; }
+.head-to-head-overlay[hidden] { display: none !important; }
+body > .head-to-head-overlay {
+  position: fixed !important;
+  inset: 0;
+  z-index: 10000 !important;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, .76);
+}
+.head-to-head-dialog {
+  width: min(100%, 43rem);
+  padding: clamp(1.3rem, 4vw, 2.5rem);
+  border: 2px solid var(--accent, #e7548f);
+  border-radius: 1.4rem;
+  background: var(--background, #fff0f6);
+  color: var(--text, #75435f);
+  box-shadow: 0 20px 65px #0008;
+  text-align: center;
+}
+.head-to-head-top { display: flex; justify-content: flex-end; }
+.head-to-head-close {
+  border: 1px solid var(--accent, #e7548f);
+  border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--secondary, #f5c7db);
+  color: var(--text, #75435f);
+}
+.head-to-head-dialog h2 { margin: .2rem 0; font-size: clamp(1.4rem, 3vw, 2rem); }
+#head-to-head-progress { margin: .3rem 0 1.6rem; }
+.head-to-head-choices { display: flex; align-items: stretch; justify-content: center; gap: .8rem; flex-wrap: wrap; }
+.head-to-head-choice {
+  flex: 1 1 11rem;
+  padding: 1.6rem .8rem;
+  border: 2px solid var(--accent, #e7548f);
+  border-radius: 1rem;
+  background: var(--secondary, #f5c7db);
+  color: var(--text, #75435f);
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+.head-to-head-choice:hover, .head-to-head-choice:focus-visible {
+  outline: 3px solid var(--accent, #e7548f);
+  outline-offset: 2px;
+}
+.head-to-head-versus { align-self: center; font-weight: bold; }
+.head-to-head-winner { width: 100%; font-size: 1.6rem; font-weight: bold; padding: 1rem; }
+@media (max-width: 36rem) { .head-to-head-choice { flex-basis: 100%; } }
+
 </style>
 </head>
 <body>
@@ -219,6 +272,14 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
     <div id="tournament-bracket" aria-live="polite"></div>
   </main>
 </div>
-<script type="module" src="./js/main.js?v=outside6"></script>
+<script type="module" src="./js/main.js?v=headtohead7"></script>
+<div id="head-to-head-overlay" class="head-to-head-overlay" hidden>
+  <section class="head-to-head-dialog" role="dialog" aria-modal="true" aria-labelledby="head-to-head-title">
+    <div class="head-to-head-top"><button type="button" id="head-to-head-close" class="head-to-head-close" aria-label="Close head-to-head mode">×</button></div>
+    <h2 id="head-to-head-title">Head-to-Head</h2>
+    <p id="head-to-head-progress"></p>
+    <div id="head-to-head-choices" class="head-to-head-choices"></div>
+  </section>
+</div>
 </body>
 </html>
