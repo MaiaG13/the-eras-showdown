@@ -36,10 +36,53 @@ const themes = {
   tloas
 };
 
+
+const themeStylesheets = {
+  debut: "./themes/debut/debut.css",
+  fearless: "./themes/fearless/fearless.css",
+  speakNow: "./themes/speakNow/speakNow.css",
+  red: "./themes/red/red.css",
+  nineteenEightyNine: "./themes/nineteenEightyNine/nineteenEightyNine.css",
+  reputation: "./themes/reputation/reputation.css",
+  lover: "./themes/lover/lover.css",
+  folklore: "./themes/folklore/folklore.css",
+  evermore: "./themes/evermore/evermore.css",
+  midnights: "./themes/midnights/midnights.css",
+  ttpd: "./themes/ttpd/ttpd.css",
+  tloas: "./themes/tloas/tloas.css"
+};
+
+
 const STORAGE_KEY = "selectedEra";
 
 let activeTheme = null;
 let activeThemeId = null;
+
+function loadThemeStylesheet(themeId) {
+  const stylesheet = document.getElementById(
+    "active-theme-stylesheet"
+  );
+
+  const path = themeStylesheets[themeId];
+
+  if (!path) {
+    console.warn(`No stylesheet for ${themeId}`);
+    return;
+  }
+
+  if (stylesheet) {
+    stylesheet.href = path;
+  } else {
+    const link = document.createElement("link");
+
+    link.id = "active-theme-stylesheet";
+    link.rel = "stylesheet";
+    link.href = path;
+
+    document.head.appendChild(link);
+  }
+}
+
 
 // Return the identifiers of all available themes.
 export function getAvailableThemes() {
@@ -102,6 +145,9 @@ export function changeTheme(themeId) {
       );
     }
   }
+
+  // Load the selected album's CSS.
+  loadThemeStylesheet(themeId);
 
   // Activate album-specific effects.
   if (nextTheme.activate) {
