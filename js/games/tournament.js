@@ -1,6 +1,8 @@
 /* The Eras Showdown — interactive single-elimination bracket */
 const ERAS = ["Debut","Fearless","Speak Now","Red","1989","reputation","Lover","folklore","evermore","Midnights","The Tortured Poets Department","The Life of a Showgirl"];
 let root, rounds;
+let headToHead = false;
+let previousFocus = null;
 
 function node(tag, cls = "", text = "") {
   const el = document.createElement(tag);
@@ -54,6 +56,8 @@ function setup(names) {
     slots[i * 2] = randomized[cursor++];
     if (!byeSet.has(i)) slots[i * 2 + 1] = randomized[cursor++];
   }
+  headToHead = false;
+  closeHeadToHead();
   rounds = [];
   let size = count;
   while (size >= 2) {
@@ -89,6 +93,7 @@ function selectWinner(r, m, player) {
   }
   propagate();
   render();
+  if (headToHead) showNextMatch();
 }
 function render() {
   const area = root.querySelector("#tournament-bracket");
@@ -96,7 +101,10 @@ function render() {
   if (!rounds) return;
   const toolbar = node("div", "bracket-toolbar");
   toolbar.appendChild(node("p", "", "Click a contestant to advance them. Scroll sideways to view later rounds."));
+  toolbar.appendChild(button("Head-to-Head Mode", () => openHeadToHead(), "bracket-reset head-to-head-start"));
   toolbar.appendChild(button("New tournament", () => {
+    headToHead = false;
+    closeHeadToHead();
     rounds = null;
     root.querySelector("#tournament-setup").hidden = false;
     area.replaceChildren();
@@ -156,6 +164,62 @@ function render() {
   board.appendChild(right);
   area.appendChild(board);
 }
+
+function closeHeadToHead() {
+  const overlay = document.getElementById("head-to-head-overlay");
+  if (overlay) overlay.hidden = true;
+  headToHead = false;
+  document.body.classList.remove("head-to-head-open");
+  if (previousFocus?.isConnected) previousFocus.focus();
+  previousFocus = null;
+}
+function openHeadToHead() {
+  if (!rounds) return;
+  previousFocus = document.activeElement;
+  headToHead = true;
+  const overlay = document.getElementById("head-to-head-overlay");
+  if (!overlay) return;
+  overlay.hidden = false;
+  document.body.classList.add("head-to-head-open");
+  showNextMatch();
+}
+function showNextMatch() {
+  if (!headToHead || !rounds) return;
+  const overlay = document.getElementById("head-to-head-overlay");
+  const title = overlay.querySelector("#head-to-head-title");
+  const progress = overlay.querySelector("#head-to-head-progress");
+  const choices = overlay.querySelector("#head-to-head-choices");
+  choices.replaceChildren();
+  // Finish every playable matchup in the current round before moving on.
+  for (let r = 0; r < rounds.length; r++) {
+    const matches = rounds[r];
+    for (let m = 0; m < matches.length; m++) {
+      const match = matches[m];
+      if (match.winner) continue;
+      if (match.players.some(player => !player)) {
+        // This round is waiting on earlier rounds.
+        continue;
+      }
+      const name = matches.length === 1 ? "Championship" :
+        matches.length === 2 ? "Semifinals" :
+        matches.length === 4 ? "Quarterfinals" : "Round of " + matches.length * 2;
+      title.textContent = name;
+      const completed = matches.filter(item => item.winner).length;
+      progress.textContent = "Match " + (completed + 1) + " of " + matches.length;
+      choices.appendChild(button(match.players[0], () => selectWinner(r, m, match.players[0]), "head-to-head-choice"));
+      choices.appendChild(node("span", "head-to-head-versus", "VS"));
+      choices.appendChild(button(match.players[1], () => selectWinner(r, m, match.players[1]), "head-to-head-choice"));
+      choices.querySelector("button")?.focus();
+      return;
+    }
+  }
+  title.textContent = "Tournament complete!";
+  progress.textContent = "Your champion";
+  choices.appendChild(node("div", "head-to-head-winner", rounds.at(-1)[0].winner || "To be crowned"));
+  choices.appendChild(button("View full bracket", closeHeadToHead, "bracket-reset"));
+  choices.querySelector("button")?.focus();
+}
+
 function renderInputs(count) {
   const fields = root.querySelector("#tournament-fields");
   fields.replaceChildren();
@@ -174,6 +238,19 @@ function renderInputs(count) {
 export function initializeTournament() {
   root = document.getElementById("tournament-app");
   if (!root) return;
+  const overlay = document.getElementById("head-to-head-overlay");
+  overlay?.querySelector("#head-to-head-close")?.addEventListener("click", closeHeadToHead);
+  overlay?.addEventListener("click", event => { if (event.target === overlay) closeHeadToHead(); });
+  document.addEventListener("keydown", event => {
+    if (!headToHead) return;
+    if (event.key === "Escape") { closeHeadToHead(); return; }
+    if (event.key === "Tab") {
+      const focusable = [...overlay.querySelectorAll("button:not([disabled])")];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
   const count = root.querySelector("#tournament-size");
   renderInputs(Number(count.value));
   count.addEventListener("change", () => renderInputs(Number(count.value)));
