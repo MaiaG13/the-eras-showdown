@@ -89,6 +89,32 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
   .bracket-board-double .bracket-round { flex-basis: 10.5rem; }
 }
 
+
+/* Compact mirrored bracket: all 16 slots fit on typical desktop widths. */
+.page { max-width: 100%; padding-inline: clamp(.65rem, 1.6vw, 1.5rem); }
+.panel { padding: clamp(.7rem, 1.4vw, 1.4rem); }
+.bracket-board-double { gap: clamp(.25rem, .65vw, .65rem); }
+.bracket-wing { gap: clamp(.25rem, .65vw, .65rem); min-width: 0; }
+.bracket-board-double .bracket-round {
+  flex: 0 0 clamp(6.5rem, 10.7vw, 10.8rem);
+}
+.bracket-center { flex: 0 0 clamp(7.5rem, 12vw, 11.5rem); }
+.bracket-board-double .bracket-player {
+  font-size: clamp(.69rem, .78vw, .83rem);
+  padding: .38rem .35rem;
+  min-height: 2.35rem;
+  line-height: 1.2;
+}
+.bracket-board-double .bracket-match { padding: .25rem; }
+.bracket-board-double .bracket-round h3, .bracket-center h3 { font-size: clamp(.77rem, .95vw, 1rem); }
+.bracket-board-double .bracket-match::after { width: clamp(.25rem, .65vw, .65rem); }
+.bracket-board-double .bracket-champion-name { padding: .85rem .35rem; font-size: .85rem; }
+@media (max-width: 820px) {
+  .bracket-board-double .bracket-round { flex-basis: 8.5rem; }
+  .bracket-center { flex-basis: 9rem; }
+  .bracket-board-double .bracket-player { font-size: .75rem; }
+}
+
 </style>
 </head>
 <body>
