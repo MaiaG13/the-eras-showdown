@@ -43,6 +43,52 @@ h1 { text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); margin: 2rem 0 .25
 .bracket-champion-name { padding: 1.4rem .7rem; border: 2px solid #c99b42; border-radius: .85rem; text-align: center; background: #fff9e9; color: #57401f; font-weight: bold; overflow-wrap: anywhere; }
 @media (max-width: 36rem) { .tournament-fields { grid-template-columns: 1fr; } .bracket-round { flex-basis: 12rem; } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* Mirrored tournament bracket: first rounds at the edges, final at center. */
+.bracket-board-double {
+  min-height: 30rem;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+.bracket-wing {
+  display: flex;
+  flex: 1 0 auto;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+.bracket-wing-left { justify-content: flex-end; }
+.bracket-wing-right { justify-content: flex-start; }
+.bracket-board-double .bracket-round {
+  flex: 0 0 12rem;
+}
+.bracket-board-double .bracket-round-games {
+  min-height: 24rem;
+}
+.bracket-board-double .bracket-match::after {
+  width: 1.25rem;
+}
+.bracket-board-double .bracket-right .bracket-match::after {
+  left: auto;
+  right: 100%;
+}
+.bracket-center {
+  flex: 0 0 13rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: .7rem;
+}
+.bracket-center h3 { margin: 0; }
+.bracket-center .bracket-final::after { display: none; }
+.bracket-center .champion-title { margin-top: 1rem; }
+.bracket-board-double .bracket-player { font-size: .9rem; }
+@media (max-width: 55rem) {
+  .bracket-board-double { gap: .8rem; }
+  .bracket-wing { gap: .8rem; }
+  .bracket-board-double .bracket-round { flex-basis: 10.5rem; }
+}
+
 </style>
 </head>
 <body>
