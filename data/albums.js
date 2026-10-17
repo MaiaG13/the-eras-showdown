@@ -8,4 +8,5 @@ export const ALBUMS = [
 ["lover","Lover","I Forgot That You Existed|Cruel Summer|Lover|The Man|The Archer|I Think He Knows|Miss Americana & the Heartbreak Prince|Paper Rings|Cornelia Street|Death By a Thousand Cuts|London Boy|Soon You\u0027ll Get Better|False God|You Need to Calm Down|Afterglow|ME!|It\u0027s Nice to Have a Friend|Daylight"],
 ["folklore","folklore","the 1|cardigan|the last great american dynasty|exile|my tears ricochet|mirrorball|seven|august|this is me trying|illicit affairs|invisible string|mad woman|epiphany|betty|peace|hoax"],
 ["evermore","evermore","willow|champagne problems|gold rush|\u0027tis the damn season|tolerate it|no body, no crime|happiness|dorothea|coney island|ivy|cowboy like me|long story short|marjorie|closure|evermore"],
+["midnights","Midnights","Lavender Haze|Maroon|Anti-Hero|Snow on the Beach|You\u0027re on Your Own, Kid|Midnight Rain|Question...?|Vigilante Shit|Bejeweled|Labyrinth|Karma|Sweet Nothing|Mastermind"],
 ].map(([id,name,songs])=>({id,name,songs:songs.split("|")}));
