@@ -256,9 +256,27 @@ export function initializeTournament() {
   });
   const savedEra = localStorage.getItem("selectedEra");
   if (ALBUMS.some(album => album.id === savedEra)) select.value = savedEra;
+  const modeButtons = [...root.querySelectorAll("[data-tournament-mode]")];
+  const songPicker = root.querySelector("#tournament-song-picker");
+  let tournamentMode = "albums";
+  function setMode(mode) {
+    tournamentMode = mode;
+    songPicker.hidden = mode !== "songs";
+    modeButtons.forEach(button => {
+      const active = button.dataset.tournamentMode === mode;
+      button.setAttribute("aria-pressed", String(active));
+      button.classList.toggle("is-selected", active);
+    });
+  }
+  modeButtons.forEach(button => button.addEventListener("click", () => setMode(button.dataset.tournamentMode)));
+  setMode("albums");
   root.querySelector("#tournament-setup").addEventListener("submit", event => {
     event.preventDefault();
-    const album = ALBUMS.find(item => item.id === select.value);
-    if (album) setup(album.songs);
+    if (tournamentMode === "albums") {
+      setup(ALBUMS.map(album => album.name));
+    } else {
+      const album = ALBUMS.find(item => item.id === select.value);
+      if (album) setup(album.songs);
+    }
   });
 }
