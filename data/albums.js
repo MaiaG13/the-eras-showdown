@@ -9,4 +9,5 @@ export const ALBUMS = [
 ["folklore","folklore","the 1|cardigan|the last great american dynasty|exile|my tears ricochet|mirrorball|seven|august|this is me trying|illicit affairs|invisible string|mad woman|epiphany|betty|peace|hoax"],
 ["evermore","evermore","willow|champagne problems|gold rush|\u0027tis the damn season|tolerate it|no body, no crime|happiness|dorothea|coney island|ivy|cowboy like me|long story short|marjorie|closure|evermore"],
 ["midnights","Midnights","Lavender Haze|Maroon|Anti-Hero|Snow on the Beach|You\u0027re on Your Own, Kid|Midnight Rain|Question...?|Vigilante Shit|Bejeweled|Labyrinth|Karma|Sweet Nothing|Mastermind"],
+["ttpd","The Tortured Poets Department","Fortnight|The Tortured Poets Department|My Boy Only Breaks His Favorite Toys|Down Bad|So Long, London"],
 ].map(([id,name,songs])=>({id,name,songs:songs.split("|")}));
