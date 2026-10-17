@@ -246,6 +246,12 @@ body > .head-to-head-overlay {
   color: #302639;
 }
 
+
+.tournament-mode-picker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 1.4rem auto; max-width: 42rem; }
+.tournament-mode-picker button { padding: 1.1rem .75rem; border: 2px solid var(--arena-edge, var(--accent, #8554a5)); border-radius: .9rem; background: color-mix(in srgb, var(--arena-soft, #f5c7db) 35%, var(--background, #fff) 65%); color: var(--arena-ink, #302639); font-weight: bold; }
+.tournament-mode-picker button small { display: block; font-weight: normal; margin-top: .5rem; }
+.tournament-mode-picker button.is-selected { background: var(--arena-soft, #f5c7db); outline: 2px solid var(--arena-edge, #8554a5); outline-offset: 2px; }
+@media (max-width: 36rem) { .tournament-mode-picker { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -268,19 +274,25 @@ body > .head-to-head-overlay {
   <p class="intro">Your favorites. Head to head. One champion.</p>
   <main id="tournament-app" class="panel">
     <form id="tournament-setup">
-      <h2>Choose Your Album</h2>
-      <p>Every song on the standard album tracklist enters the bracket. Pick your favorites to crown a winner!</p>
-      <label for="tournament-album">Album</label>
-      <select id="tournament-album" required></select>
+      <h2>Choose Your Tournament</h2>
+      <p>Pick what goes head to head, then crown your champion!</p>
+      <div class="tournament-mode-picker" role="group" aria-label="Tournament type">
+        <button type="button" data-tournament-mode="albums" aria-pressed="true">Album vs. Album <small>All 12 eras compete</small></button>
+        <button type="button" data-tournament-mode="songs" aria-pressed="false">Songs Within an Album <small>Choose an album's tracklist</small></button>
+      </div>
+      <div id="tournament-song-picker" hidden>
+        <label for="tournament-album">Choose an album</label>
+        <select id="tournament-album" required></select>
+      </div>
       <div class="tournament-actions">
-        <button class="tournament-action" type="submit">Start album tournament</button>
+        <button class="tournament-action" type="submit">Start tournament</button>
       </div>
       <p id="tournament-message" role="status"></p>
     </form>
     <div id="tournament-bracket" aria-live="polite"></div>
   </main>
 </div>
-<script type="module" src="./js/main.js?v=albums11"></script>
+<script type="module" src="./js/main.js?v=modes12"></script>
 <div id="head-to-head-overlay" class="head-to-head-overlay" hidden>
   <section class="head-to-head-dialog" role="dialog" aria-modal="true" aria-labelledby="head-to-head-title">
     <div class="head-to-head-top"><button type="button" id="head-to-head-close" class="head-to-head-close" aria-label="Close head-to-head mode">×</button></div>
