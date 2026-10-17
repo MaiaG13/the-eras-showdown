@@ -1,5 +1,5 @@
+import { ALBUMS } from "../../data/albums.js";
 /* The Eras Showdown — interactive single-elimination bracket */
-const ERAS = ["Debut","Fearless","Speak Now","Red","1989","reputation","Lover","folklore","evermore","Midnights","The Tortured Poets Department","The Life of a Showgirl"];
 let root, rounds;
 let headToHead = false;
 let previousFocus = null;
@@ -231,21 +231,6 @@ function showNextMatch() {
   choices.querySelector("button")?.focus();
 }
 
-function renderInputs(count) {
-  const fields = root.querySelector("#tournament-fields");
-  fields.replaceChildren();
-  for (let i = 0; i < count; i++) {
-    const label = node("label", "tournament-field");
-    label.appendChild(node("span", "", "Contestant " + (i + 1)));
-    const input = node("input");
-    input.type = "text";
-    input.required = true;
-    input.maxLength = 100;
-    input.placeholder = "Name";
-    label.appendChild(input);
-    fields.appendChild(label);
-  }
-}
 export function initializeTournament() {
   root = document.getElementById("tournament-app");
   if (!root) return;
@@ -262,12 +247,18 @@ export function initializeTournament() {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
   });
-  const count = root.querySelector("#tournament-size");
-  renderInputs(Number(count.value));
-  count.addEventListener("change", () => renderInputs(Number(count.value)));
-  root.querySelector("#tournament-eras").addEventListener("click", () => setup(ERAS));
+  const select = root.querySelector("#tournament-album");
+  ALBUMS.forEach(album => {
+    const option = document.createElement("option");
+    option.value = album.id;
+    option.textContent = album.name + " (" + album.songs.length + " songs)";
+    select.appendChild(option);
+  });
+  const savedEra = localStorage.getItem("selectedEra");
+  if (ALBUMS.some(album => album.id === savedEra)) select.value = savedEra;
   root.querySelector("#tournament-setup").addEventListener("submit", event => {
     event.preventDefault();
-    setup([...root.querySelectorAll("#tournament-fields input")].map(input => input.value));
+    const album = ALBUMS.find(item => item.id === select.value);
+    if (album) setup(album.songs);
   });
 }
