@@ -234,6 +234,18 @@ body > .head-to-head-overlay {
 .head-to-head-winner { width: 100%; font-size: 1.6rem; font-weight: bold; padding: 1rem; }
 @media (max-width: 36rem) { .head-to-head-choice { flex-basis: 100%; } }
 
+
+#tournament-album {
+  display: block;
+  width: min(100%, 26rem);
+  margin: .65rem auto 1.3rem;
+  padding: .75rem;
+  border: 2px solid var(--arena-edge, var(--accent, #8554a5));
+  border-radius: .7rem;
+  background: #fff;
+  color: #302639;
+}
+
 </style>
 </head>
 <body>
@@ -256,23 +268,19 @@ body > .head-to-head-overlay {
   <p class="intro">Your favorites. Head to head. One champion.</p>
   <main id="tournament-app" class="panel">
     <form id="tournament-setup">
-      <h2>Build Your Own Showdown</h2>
-      <p>Enter your contestants or jump into a tournament featuring all 12 eras.</p>
-      <label for="tournament-size">Number of contestants</label>
-      <select id="tournament-size">
-        <option value="4">4</option><option value="8" selected>8</option><option value="16">16</option>
-      </select>
-      <div id="tournament-fields" class="tournament-fields"></div>
+      <h2>Choose Your Album</h2>
+      <p>Every song on the standard album tracklist enters the bracket. Pick your favorites to crown a winner!</p>
+      <label for="tournament-album">Album</label>
+      <select id="tournament-album" required></select>
       <div class="tournament-actions">
-        <button class="tournament-action" type="submit">Start custom tournament</button>
-        <button class="tournament-action" type="button" id="tournament-eras">Play all 12 eras</button>
+        <button class="tournament-action" type="submit">Start album tournament</button>
       </div>
       <p id="tournament-message" role="status"></p>
     </form>
     <div id="tournament-bracket" aria-live="polite"></div>
   </main>
 </div>
-<script type="module" src="./js/main.js?v=counter10"></script>
+<script type="module" src="./js/main.js?v=albums11"></script>
 <div id="head-to-head-overlay" class="head-to-head-overlay" hidden>
   <section class="head-to-head-dialog" role="dialog" aria-modal="true" aria-labelledby="head-to-head-title">
     <div class="head-to-head-top"><button type="button" id="head-to-head-close" class="head-to-head-close" aria-label="Close head-to-head mode">×</button></div>
