@@ -5,4 +5,5 @@ export const ALBUMS = [
 ["red","Red","State of Grace|Red|Treacherous|I Knew You Were Trouble.|All Too Well|22|I Almost Do|We Are Never Ever Getting Back Together|Stay Stay Stay|The Last Time|Holy Ground|Sad Beautiful Tragic|The Lucky One|Everything Has Changed|Starlight|Begin Again"]
 ["nineteenEightyNine","1989","Welcome to New York|Blank Space|Style|Out of the Woods|All You Had to Do Was Stay|Shake It Off|I Wish You Would|Bad Blood|Wildest Dreams"],
 ["reputation","reputation","...Ready for It?|End Game|I Did Something Bad|Don\u0027t Blame Me|Delicate|Look What You Made Me Do|So It Goes...|Gorgeous|Getaway Car|King of My Heart|Dancing with Our Hands Tied|Dress|This Is Why We Can\u0027t Have Nice Things|Call It What You Want|New Year\u0027s Day"],
+["lover","Lover","I Forgot That You Existed|Cruel Summer|Lover|The Man|The Archer|I Think He Knows|Miss Americana & the Heartbreak Prince|Paper Rings|Cornelia Street|Death By a Thousand Cuts|London Boy|Soon You\u0027ll Get Better|False God|You Need to Calm Down|Afterglow|ME!|It\u0027s Nice to Have a Friend|Daylight"],
 ].map(([id,name,songs])=>({id,name,songs:songs.split("|")}));
