@@ -10,4 +10,5 @@ export const ALBUMS = [
 ["evermore","evermore","willow|champagne problems|gold rush|\u0027tis the damn season|tolerate it|no body, no crime|happiness|dorothea|coney island|ivy|cowboy like me|long story short|marjorie|closure|evermore"],
 ["midnights","Midnights","Lavender Haze|Maroon|Anti-Hero|Snow on the Beach|You\u0027re on Your Own, Kid|Midnight Rain|Question...?|Vigilante Shit|Bejeweled|Labyrinth|Karma|Sweet Nothing|Mastermind"],
 ["ttpd","The Tortured Poets Department","Fortnight|The Tortured Poets Department|My Boy Only Breaks His Favorite Toys|Down Bad|So Long, London|But Daddy I Love Him|Fresh Out the Slammer|Florida!!!|Guilty as Sin?|Who's Afraid of Little Old Me?|I Can Fix Him (No Really I Can)|loml|I Can Do It With a Broken Heart|The Smallest Man Who Ever Lived|The Alchemy|Clara Bow"],
+["tloas","The Life of a Showgirl","The Fate of Ophelia|Elizabeth Taylor|Opalite|Father Figure|Eldest Daughter|Ruin the Friendship|Actually Romantic|Wi$h Li$t|Wood|CANCELLED!|Honey|The Life of a Showgirl"],
 ].map(([id,name,songs])=>({id,name,songs:songs.split("|")}));
