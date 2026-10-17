@@ -3,4 +3,5 @@ export const ALBUMS = [
 ["fearless","Fearless","Fearless|Fifteen|Love Story|Hey Stephen|White Horse|You Belong with Me|Breathe|Tell Me Why|You're Not Sorry|The Way I Loved You|Forever & Always|The Best Day|Change"],
 ["speakNow","Speak Now","Mine|Sparks Fly|Back to December|Speak Now|Dear John|Mean|The Story of Us|Never Grow Up|Enchanted|Better Than Revenge|Innocent|Haunted|Last Kiss|Long Live"],
 ["red","Red","State of Grace|Red|Treacherous|I Knew You Were Trouble.|All Too Well|22|I Almost Do|We Are Never Ever Getting Back Together|Stay Stay Stay|The Last Time|Holy Ground|Sad Beautiful Tragic|The Lucky One|Everything Has Changed|Starlight|Begin Again"]
+["nineteenEightyNine","1989","Welcome to New York|Blank Space|Style|Out of the Woods|All You Had to Do Was Stay|Shake It Off|I Wish You Would|Bad Blood|Wildest Dreams"],
 ].map(([id,name,songs])=>({id,name,songs:songs.split("|")}));
